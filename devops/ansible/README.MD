@@ -10,8 +10,29 @@ Ansible is solution to solve the repetitive tasks performed during the release c
 ### Concepts
 Lets list down the entities on which Ansible works.
   * Host(s) : This can be provided as input to ansible using `-i` command switch, or it defaults to `/etc/ansible/hosts` or environment variables as _**#TODO**_
-  * Module
+  Hosts can be oraganized a inventory.
+  * Module: A module is an encapsutalted entity that perfrom certain tasks. They are referred by names and they are passed values as key-value pairs.
+  * Playbooks: It is a recipe of configuration management for a set of hosts. The goal is perform a set of actions (called as tasks) on a group of hosts. The tasks are nothing more than a call to ansible module. Playbooks are written in YAML files. They basically contains sections called as plays. Plays are oraganized in playbooks to achieve certain set of actions to be performed on set of hosts in a particular order.
+    * Play: A play has a name, and is targeted for a set host machine and uses a remote user to perform the tasks defined for that play.
 
+    ```
+    ---
+    - name: A play name
+      hosts: webserver # can use pattern to include a list of hosts
+      vars: # variables to be used inside this play
+        http_port: 8002
+      remote_user: ec2-user # log in to the hosts in 'webserver' group using 'web' as the
+      become: yes # become the root user. this property can also be used inside tasks, to run only particular task as root
+      become_method: sudo # it can 'su' too.
+      tasks:
+        - name : Task name
+          command : echo "Hello World!"
+          notify:
+          - restart iptables # listeners to be run on successful play completions - all task to be run successfully, these should be defined as 'handlers' task, on a global scope.
+
+    ...
+    ```
+    Playbooks can be run using `ansible-playbook` or using `ansible-pull`
 ### Setup
   * Installation  
   * Required Concepts  

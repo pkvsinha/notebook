@@ -1,0 +1,15 @@
+---
+- name: Do Echo
+  hosts: localhost
+  vars:
+    http_port: 8080
+  gather_facts: False
+  tasks:
+    - name: Do Echo Echoo
+      shell: echo "Hello World"
+      register: message
+      notify:
+        - do notify
+
+    - debug: msg="Successfully print {{message.stdout}} at {{message.start}} for port {{http_port}}"
+...

@@ -26,9 +26,8 @@ The following is `.babelrc`
 ```
 
 * Webpack and its plugins
-> `npm install --save-dev webpack`  
-`npm install --save-dev html-webpack-plugin` # Html Webpack plugin To copy index.html from src to dist  
-THe   
+> `npm install --save-dev webpack webpack-dev-server html-webpack-plugin`  
+THe  
 ```
 ```
 

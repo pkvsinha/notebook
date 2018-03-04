@@ -1,14 +1,23 @@
 /**
  * This Module explains the usage of streams module.
  * 
- * Streams represent flow of data. The flow can be categorized as inflow that is when something is put on the
- * stream, and outflow when something is taken out of the stream - outflow. Inflow is represetned by 
- * writable stream and outflow is Readable stream. When a data is sent on to the stream it has to 
+ * Streams represent pipeline for the flow of data that has a source and a sink. 
+ * Once the pipeline is ready, the data will start flowing making hops represented
+ * by the interfaces. When a data is sent on to the stream it has to 
  * be either read by a Readable stream instance - for whatever purpose.
  * 
  * Implications - Flow, Error Handling
  * Streams generally use `Buffer` to maintain the data flow
  * Use case: Piping
+ * 
+ * 1. Readable
+ * 2. Writable 
+ * 3. Duplex
+ * 4. Transform
  */
 const stream = require('stream');
 
+/**
+ * Readable
+ */
+process.stdin

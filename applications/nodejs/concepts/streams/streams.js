@@ -18,6 +18,6 @@
 const stream = require('stream');
 
 /**
- * Readable
+ * Readable. They all begin with paused mode. which can be converted into flowing mode
  */
 process.stdin

@@ -12,11 +12,13 @@ Other than providing the basic abstraction to the underlying OS, like Filesystem
 A fore note, functionality in Node.js is divied using modules, a concept although used almost everywhere, which we will see in detail later. A module in can be imported using `require('module_name')`.
 
 * Event
-* Stream
-* Asynchronous processing
+* Streams
 * Errors
 * Modules
+* Process
+* Net, Socket, HTTP
 * Clustering
+* Asynchronous processing
 
 ### Event
 Not everything in this world happens serially. Like when you making coffee, you do not stay there and watch it getting done. Instead you do your work and when the sound happens you go check the coffee. Making sound was an event that alerted you that coffee is ready. You chose to respond to it. While reading newspaper, you hear the doorbell, and go answer the door, and not the other way; where keep watching the door if someone is coming.

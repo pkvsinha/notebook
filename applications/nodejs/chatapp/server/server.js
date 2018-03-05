@@ -6,7 +6,6 @@ server.on('request', (request,response) => {
     
     let body = [];
     request.on('data', ( chunk ) => {
-        console.log("received data " + chunk);
         body.push( chunk );
     }).on('end', ()=> {
         body = Buffer.concat(body).toString('ascii');

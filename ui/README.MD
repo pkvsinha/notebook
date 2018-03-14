@@ -49,3 +49,10 @@ Common Components on UI.
 * Accordian
 
 There are certainly tools which will make your life easier as a web developer.
+
+## Templating
+Templating is one of the most important aspectes of UI development.
+
+## Ajax
+
+## DOM Manipulation.

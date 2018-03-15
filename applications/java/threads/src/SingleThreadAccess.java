@@ -6,47 +6,50 @@ public class SingleThreadAccess {
 
     public Object take() {
         boolean shouldWait = false;
-        synchronized(this) {
+        synchronized(lock) {
             if( this.value != null ) {
                 shouldWait = true;
             }
         }
         if ( shouldWait ) {
-            try{
-                lock.wait();
-            } catch(InterruptedException e) {
-                System.err.println("Consumer is broken");
-            }
-            
+            synchronized(lock) {
+                try{
+                    lock.wait();
+                } catch(InterruptedException e) {
+                    System.err.println("Producer is broken");
+                }
+            } 
         } 
         Object temp = null;
-        synchronized( this ) {
+        synchronized( lock ) {
             temp = this.value;
             this.value = null;
+            lock.notifyAll();
         }
-        lock.notifyAll();
+        
         return temp;
     }
 
     public void put( Object value ) {   
         boolean shouldWait = false;
-        synchronized(this) {
+        synchronized(lock) {
             if( this.value != null ) {
                 shouldWait = true;
             }
         }
         if ( shouldWait ) {
-            try{
-                lock.wait();
-            } catch(InterruptedException e) {
-                System.err.println("Producer is broken");
-            }
+            synchronized(lock) {
+                try{
+                    lock.wait();
+                } catch(InterruptedException e) {
+                    System.err.println("Producer is broken");
+                }
+            }            
         }  
-        synchronized(this) {
+        synchronized(lock) {
             this.value = value;
-        }   
-        
-        lock.notifyAll();       
+            lock.notifyAll();  
+        }        
     }
 
     public static void main(String[] args) {

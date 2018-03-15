@@ -8,3 +8,36 @@ When you want n threads to work on the resource at any given time, it is called 
 Latches are used as gates that will hold onto the threads until it reaches a condition. Once the condition is met, it breaks open, and threads are allowed to run as per the scheduling policy.
 
 Barriers are used similar to latches in functioning except for it can be reused unlike latches which can not be used after the latch is broken.
+
+## Issues with threads
+
+### Liveness
+
+### Starvation
+
+### Memory inconsistency
+
+### Livelock
+
+## Best practices to avoid thread side-effects
+
+1. Immtable objects
+2. Local variables
+3. Synchronized access to global variable
+4. Volatile global fields
+
+## Tools to enable threaded environment
+
+### Synchronization
+
+### Locking
+
+### Atomicity
+
+### Race Conditions
+
+## Thread Patterns
+Independent execution of Task
+### Executor framework
+
+### Thread pools

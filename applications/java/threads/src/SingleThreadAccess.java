@@ -4,52 +4,34 @@ public class SingleThreadAccess {
     
     private Object value;
 
-    public Object take() {
-        boolean shouldWait = false;
-        synchronized(lock) {
-            if( this.value != null ) {
-                shouldWait = true;
+    public synchronized Object take() {
+        while( this.value == null ) {
+            try{
+                this.wait();
+            } catch(InterruptedException e) {
+                System.err.println("Producer is broken");
+                return null;
             }
         }
-        if ( shouldWait ) {
-            synchronized(lock) {
-                try{
-                    lock.wait();
-                } catch(InterruptedException e) {
-                    System.err.println("Producer is broken");
-                }
-            } 
-        } 
-        Object temp = null;
-        synchronized( lock ) {
-            temp = this.value;
-            this.value = null;
-            lock.notifyAll();
-        }
+       
+        Object temp = this.value;
+        this.value = null;
+        this.notifyAll();
         
         return temp;
     }
 
-    public void put( Object value ) {   
-        boolean shouldWait = false;
-        synchronized(lock) {
-            if( this.value != null ) {
-                shouldWait = true;
+    public synchronized void put( Object value ) {   
+        while( this.value != null ) {
+            try{
+                this.wait();
+            } catch(InterruptedException e) {
+                System.err.println("Producer is broken");
+                return;
             }
         }
-        if ( shouldWait ) {
-            synchronized(lock) {
-                try{
-                    lock.wait();
-                } catch(InterruptedException e) {
-                    System.err.println("Producer is broken");
-                }
-            }            
-        }  
-        synchronized(lock) {
-            this.value = value;
-            lock.notifyAll();  
-        }        
+        this.value = value;
+        this.notifyAll();      
     }
 
     public static void main(String[] args) {
@@ -59,11 +41,11 @@ public class SingleThreadAccess {
                 while(true) {
                     long timeTowait = Math.round( Math.ceil( Math.random() * 5000 ) );
                     try {
-                        System.out.println("Producer is sleeping for " + timeTowait);
                         Thread.sleep(timeTowait);
                     } catch(InterruptedException e) {
                         throw new RuntimeException();
                     } 
+                    System.out.println("Producer : " + timeTowait);
                     queue.put(timeTowait);
                 }                
             }
@@ -78,7 +60,7 @@ public class SingleThreadAccess {
                     } catch(InterruptedException e) {
                         throw new RuntimeException();
                     }                    
-                    System.out.println("Producer was sleeping for " + queue.take() );
+                    System.out.println("Consumer : " + queue.take() );
                 }                
             }
         });

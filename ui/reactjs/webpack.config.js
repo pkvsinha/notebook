@@ -13,6 +13,8 @@ const HtmlWebpackPluginConf = new HtmlWebpackPlugin({
   title: 'React App'
 });
 
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 /**
 */
 module.exports = {
@@ -23,10 +25,18 @@ module.exports = {
   },
   module : {
     rules : [
-      { test : /\.js$/, use : 'babel-loader', exclude : /node_modules/ }
+      { test : /\.js$/, use : 'babel-loader', exclude : /node_modules/ },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
+      }
     ]
   },
   plugins : [
-    HtmlWebpackPluginConf
+    HtmlWebpackPluginConf,
+    new ExtractTextPlugin("style.css")
   ]
 };

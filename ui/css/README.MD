@@ -7,8 +7,10 @@ Stylesheets are important to define the appearance of of HTML document. HTML and
 The below are the various aspects on which one can work on while developing the CSS. It requires a change in the mindset when you are programming in CSS. By default, the CSS provide you tools that allows to paint object, rectangular, circular, text etc. You combine these to present a look-and-feel - an appearance.
 
 ## Typography
+font-family
 
 ## Layout & Alignment
+Flexbox, flex, position, 
 
 ## Navigation, Menus & Sidebars
 
